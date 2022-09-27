@@ -1,9 +1,9 @@
-import { ContactList } from './ContactList/ContactList';
+import { Contacts } from './Contacts/Contacts';
 
 export const App = () => {
   return (
     <div>
-      <ContactList />
+      <Contacts />
     </div>
   );
 };

@@ -1,18 +1,16 @@
-import { useFetchContactsQuery } from 'redux/contactsSlice';
+import PropTypes from 'prop-types';
 import { ContactItem } from '../ContactItem/ContactItem';
 
-export const ContactList = () => {
-  const { data: contacts, isFetching } = useFetchContactsQuery();
+export const ContactList = ({ contacts }) => {
   return (
-    <div>
-      {isFetching && <p>Loading...</p>}
-      {contacts && (
-        <ul>
-          {contacts.map(contact => (
-            <ContactItem key={contact.id} {...contact} />
-          ))}
-        </ul>
-      )}
-    </div>
+    <ul>
+      {contacts.map(contact => (
+        <ContactItem key={contact.id} {...contact} />
+      ))}
+    </ul>
   );
+};
+
+ContactList.propTypes = {
+  contacts: PropTypes.array.isRequired,
 };
