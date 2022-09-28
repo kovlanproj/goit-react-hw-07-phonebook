@@ -1,17 +1,21 @@
+import toast from 'react-hot-toast';
 import { useAddContactMutation } from 'redux/contactsSlice';
 
 export function AddContactForm() {
-  const [addContact, { isLoading, isSuccess }] = useAddContactMutation();
+  const [addContact, { isLoading }] = useAddContactMutation();
 
   const handleSubmit = async e => {
     e.preventDefault();
     const {
       elements: { name, phone },
     } = e.currentTarget;
-    addContact({ name: name.value, phone: phone.value });
-    e.currentTarget.reset();
-
-    // toast.success('Заметка создана!');
+    try {
+      addContact({ name: name.value, phone: phone.value });
+      toast.success('Contact added');
+      e.currentTarget.reset();
+    } catch (error) {
+      toast.error('Error! Try again');
+    }
   };
 
   return (
@@ -36,7 +40,9 @@ export function AddContactForm() {
           required
         />
       </label>
-      <button type="submit">Add contact</button>
+      <button type="submit" disabled={isLoading}>
+        Add contact
+      </button>
     </form>
   );
 }
