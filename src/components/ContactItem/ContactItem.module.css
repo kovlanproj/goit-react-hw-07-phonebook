@@ -1,0 +1,19 @@
+.list {
+  padding: 10px;
+  display: flex;
+  border-bottom: 1px solid grey;
+}
+
+.contacts {
+  margin-right: 30px;
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+.phone {
+  margin-left: auto;
+}
+
+.button {
+  width: 60px;
+}
