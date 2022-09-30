@@ -1,3 +1,4 @@
+import ClipLoader from 'react-spinners/ClipLoader';
 import { useDeleteContactMutation } from 'redux/contactsSlice';
 import styles from './ContactItem.module.css';
 
@@ -16,6 +17,7 @@ export const ContactItem = ({ id, name, phone }) => {
         disabled={isDeleting}
         className={styles.button}
       >
+        {isDeleting && <ClipLoader color="#464646" size={12} />}
         Delete
       </button>
     </li>

@@ -1,15 +1,32 @@
 import toast from 'react-hot-toast';
-import { useAddContactMutation } from 'redux/contactsSlice';
+import ClipLoader from 'react-spinners/ClipLoader';
+
+import {
+  useAddContactMutation,
+  useFetchContactsQuery,
+} from 'redux/contactsSlice';
 import styles from './AddContactForm.module.css';
 
 export function AddContactForm() {
   const [addContact, { isLoading }] = useAddContactMutation();
+  const { data: contacts } = useFetchContactsQuery();
+
+  const checkContact = (contacts, name) => {
+    console.log(name);
+    return contacts.map(contact => contact.name).includes(name);
+  };
 
   const handleSubmit = async e => {
     e.preventDefault();
     const {
       elements: { name, phone },
     } = e.currentTarget;
+    // console.log(checkContact(contacts, name));
+    if (checkContact(contacts, name.value)) {
+      toast.error('Such contact already exists!');
+      return;
+    }
+
     try {
       addContact({ name: name.value, phone: phone.value });
       toast.success('Contact added');
@@ -45,6 +62,7 @@ export function AddContactForm() {
       </div>
 
       <button type="submit" disabled={isLoading}>
+        {isLoading && <ClipLoader color="#464646" size={12} />}
         Add contact
       </button>
     </form>
